@@ -17,6 +17,8 @@ import hudson.model.CauseAction;
 import hudson.model.Item;
 import hudson.model.ParametersAction;
 import hudson.model.Run;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.interceptor.RequirePOST;
 
 /**
  * @author <a href="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>
@@ -56,7 +58,8 @@ public class NaginatorRetryAction implements Action {
             "retry" : null;
     }
 
-    public void doIndex(StaplerResponse res, @CheckForNull @AncestorInPath AbstractBuild<?, ?> build) throws IOException {
+    @RequirePOST
+    public void doRetry(StaplerRequest req, StaplerResponse res, @CheckForNull @AncestorInPath AbstractBuild<?, ?> build) throws IOException {
         if (build == null) {
             // This should not happen as
             // this page is displayed only for AbstractBuild.

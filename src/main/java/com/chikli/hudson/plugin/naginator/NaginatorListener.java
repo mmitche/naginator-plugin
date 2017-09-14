@@ -118,6 +118,10 @@ public class NaginatorListener extends RunListener<AbstractBuild<?,?>> {
     /**
      * @deprecated use {@link NaginatorScheduleAction#shouldSchedule(Run, TaskListener, int)}
      * to control scheduling.
+     * 
+     * @param build Build to check
+     * @param naginator publisher for build.
+     * @return True if build can be scheduled
      */
     @Deprecated
     public boolean canSchedule(Run build, NaginatorPublisher naginator) {
@@ -156,6 +160,10 @@ public class NaginatorListener extends RunListener<AbstractBuild<?,?>> {
     
     /**
      * @deprecated use {@link NaginatorScheduleAction} to make a build rescheduled.
+     * @param build Build to reschedule
+     * @param combinations Combination of the matrix build to reschedule
+     * @param n Delay
+     * @return True if build was scheduled
      */
     @Deprecated
     public boolean scheduleMatrixBuild(AbstractBuild<?, ?> build, List<Combination> combinations, int n) {
@@ -174,6 +182,9 @@ public class NaginatorListener extends RunListener<AbstractBuild<?,?>> {
      * Wrapper method for mocking purposes.
      * 
      * @deprecated use {@link NaginatorScheduleAction} to make a build rescheduled.
+     * @param build Build to reschedule
+     * @param n Delay
+     * @return True if build was scheduled
      */
     @Deprecated
     public boolean scheduleBuild(AbstractBuild<?, ?> build, int n) {

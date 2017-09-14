@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 /**
  * Reschedules a build if the current one fails.
  *
- * @author Nayan Hajratwala <nayan@chikli.com>
+ * @author Nayan Hajratwala &lt;nayan@chikli.com&gt;
  */
 public class NaginatorPublisher extends Notifier {
     public final static long DEFAULT_REGEXP_TIMEOUT_MS = 30000;
@@ -57,7 +57,13 @@ public class NaginatorPublisher extends Notifier {
     }
 
     /**
-     * constructor.
+     * Constructor
+     * @param regexpForRerun Regular expression to rerun on
+     * @param rerunIfUnstable Rerun if build marked as unstable
+     * @param rerunMatrixPart Rerun children
+     * @param checkRegexp If true, check log against regular expressions
+     * @param maxSchedule Maximum number of times to schedule the build
+     * @param delay Delay for newly scheduled build
      */
     @DataBoundConstructor
     public NaginatorPublisher(String regexpForRerun,
@@ -78,6 +84,15 @@ public class NaginatorPublisher extends Notifier {
     /**
      * @since 1.16
      * @deprecated use {@link #NaginatorPublisher(String, boolean, boolean, boolean, int, ScheduleDelay)} and other setters
+     * 
+     * @param regexpForRerun Regular expression to rerun on
+     * @param rerunIfUnstable Rerun if build marked as unstable
+     * @param rerunMatrixPart Rerun children
+     * @param checkRegexp  If true, check log against regular expressions
+     * @param regexpForMatrixParent If true, checks the parent's regular expression
+     * @param maxSchedule Maximum number of times to schedule the build
+     * @param delay Delay for newly scheduled build
+     * @deprecated
      */
     @Deprecated
     public NaginatorPublisher(String regexpForRerun,
@@ -118,7 +133,7 @@ public class NaginatorPublisher extends Notifier {
     }
     
     /**
-     * @param noChildStrategy
+     * @param noChildStrategy Child rerun strategy for a matrix project
      * 
      * @since 1.17
      */
@@ -146,8 +161,8 @@ public class NaginatorPublisher extends Notifier {
     /**
      * Returns whether apply the regexp to the matrix parent instead of matrix children.
      * 
-     * The default is <code>false</code> for naginator-plugin >= 1.16
-     * though <code>true</code> for configurations upgraded from naginator-plugin < 1.16.
+     * The default is <code>false</code> for naginator-plugin &gt;= 1.16
+     * though <code>true</code> for configurations upgraded from naginator-plugin &lt; 1.16.
      * 
      * @return Returns whether apply the regexp to the matrix parent instead of matrix children
      * @since 1.16
@@ -171,7 +186,7 @@ public class NaginatorPublisher extends Notifier {
     }
 
     /**
-     * @param regexpForMatrixStrategy
+     * @param regexpForMatrixStrategy Strategy for regular expressions in matrix jobs
      * @since 1.17
      */
     @DataBoundSetter
@@ -300,6 +315,7 @@ public class NaginatorPublisher extends Notifier {
         
         /**
          * @return true if the current request is for a matrix project.
+         * @param it Project object
          */
         public boolean isMatrixProject(Object it) {
             return (it instanceof MatrixProject);
